@@ -196,8 +196,8 @@ def wisCha(arr):
     return "Half-Elf"
 
 def main():
-    #arr = rollStats()
-    arr = [13, 12, 14, 18, 16, 14]
+    arr = rollStats()
+    #arr = [13, 12, 14, 18, 16, 14]
     race = pickRaceByStats(arr, highestStatIndexes)
     print(race + "\n" + printStats(arr))
 
