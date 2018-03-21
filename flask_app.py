@@ -1,6 +1,10 @@
+
+# A very simple Flask Hello World app for you to get started with...
+
+from flask import Flask, render_template
 import random as r
 
-#TODO smarter race selection
+app = Flask(__name__)
 
 def rollStats():
     statsArr = [rollOneStat(), rollOneStat(), rollOneStat(), rollOneStat(), rollOneStat(), rollOneStat()]
@@ -195,10 +199,8 @@ def wisCha(arr):
     arr[5] = arr[5] + 2
     return "Half-Elf"
 
-def main():
+@app.route('/')
+def stats():
     arr = rollStats()
-    #arr = [13, 12, 14, 18, 16, 14]
-    race = pickRaceByStats(arr, highestStatIndexes)
-    print(race + "\n" + printStats(arr))
-
-main()
+    raceStr = pickRaceByStats(arr, highestStatIndexes)
+    return render_template('stats.html', race=raceStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
