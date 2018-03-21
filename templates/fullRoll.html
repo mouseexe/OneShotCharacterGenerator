@@ -2,6 +2,18 @@
     <head>
         <title>New {{race}}</title>
         <style>
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: green;
+        }
         @font-face {
             font-family: trial;
             src: url('texgyrebonum-regular.otf');
@@ -29,7 +41,8 @@
             <p>Intelligence: {{statInt}}</p>
             <p>Wisdom: {{statWis}}</p>
             <p>Charisma: {{statCha}}</p>
-            <a href="/stats">Don't want your race selected?</a>
+            <a href="/" class="button">Reload Stats</a>
+            <a href="/stats" class="button">Disable Auto-Select Race</a>
         </div>
     </body>
 </html>
