@@ -200,7 +200,12 @@ def wisCha(arr):
     return "Half-Elf"
 
 @app.route('/')
-def stats():
+def fullRoll():
     arr = rollStats()
     raceStr = pickRaceByStats(arr, highestStatIndexes)
-    return render_template('stats.html', race=raceStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
+    return render_template('fullRoll.html', race=raceStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
+
+@app.route('/stats')
+def justStats():
+    arr = rollStats()
+    return render_template('justStats.html', statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
