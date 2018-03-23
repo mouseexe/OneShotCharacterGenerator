@@ -101,22 +101,46 @@ def isNonVariantHuman(arr):
     oddCount = 0
     for stat in arr:
         if stat%2 == 0:
-            oddCount +=1
+            oddCount += 1
     return oddCount > 3
 
+#TODO Humans, Variant Humans, Kobolds, Orcs, Tritons, and Half-Elves
+
 def strDex(arr):
-    return pickRaceByStats(arr, noGoodRaceStatIndexes)
+    arr[0] = arr[0] + 2
+    arr[1] = arr[1] + 1
+    return "Bugbear"
 def strCon(arr):
     if arr[2]%2 != 0:
-        arr[0] = arr[0]+2
-        arr[2] = arr[2]+1
-        return "Half-Orc"
+        if r.randint(0, 1) == 1:
+            arr[0] = arr[0]+2
+            arr[2] = arr[2]+1
+            return "Half-Orc"
+        else:
+            arr[0] = arr[0] + 2
+            arr[2] = arr[2] + 1
+            return "Goliath"
+    elif arr[1]%2 != 0:
+        if r.randint(0, 1) == 1:
+            arr[0] = arr[0] + 1
+            arr[2] = arr[2] + 2
+            return "Duergar Dwarf"
+        else:
+            arr[0] = arr[0] + 1
+            arr[2] = arr[2] + 2
+            return "Earth Genasi"
     else:
         arr[0] = arr[0] + 2
         arr[2] = arr[2] + 2
         return "Mountain Dwarf"
 def strInt(arr):
-    if arr[0]%2 != 0 and arr[3]%2 != 0 and isNonVariantHuman(arr):
+    #Fix this
+    if r.randint(0, 1) == 1:
+        arr[0] = arr[0] + 1
+        arr[3] = arr[3] + 1
+        arr[5] = arr[5] + 2
+        return "Half-Elf"
+    elif isNonVariantHuman(arr):
         arr[0] = arr[0] + 1
         arr[1] = arr[1] + 1
         arr[2] = arr[2] + 1
@@ -129,18 +153,14 @@ def strInt(arr):
         arr[3] = arr[3] + 1
         return "Variant Human"
 def strWis(arr):
-    if arr[0]%2 != 0 and arr[4]%2 != 0 and isNonVariantHuman(arr):
+    if arr[0] % 2 != 0:
         arr[0] = arr[0] + 1
-        arr[1] = arr[1] + 1
-        arr[2] = arr[2] + 1
-        arr[3] = arr[3] + 1
-        arr[4] = arr[4] + 1
-        arr[5] = arr[5] + 1
-        return "Human"
+        arr[4] = arr[4] + 2
+        return "Firbolg"
     else:
-        arr[0] = arr[0] + 1
+        arr[0] = arr[0] + 2
         arr[4] = arr[4] + 1
-        return "Variant Human"
+        return "Tortle"
 def strCha(arr):
     if arr[5]%2 != 0:
         arr[0] = arr[0] + 2
@@ -149,55 +169,127 @@ def strCha(arr):
     else:
         arr[0] = arr[0] + 1
         arr[5] = arr[5] + 2
-        return "Half-Elf"
+        return "Fallen Aasimar"
 def dexCon(arr):
-    arr[1] = arr[1] + 2
-    arr[2] = arr[2] + 1
-    return "Stout Halfling"
+    if arr[2] % 2 != 0:
+        if r.randint(0, 1) == 1:
+            arr[1] = arr[1] + 2
+            arr[2] = arr[2] + 1
+            return "Stout Halfling"
+        else:
+            arr[1] = arr[1] + 2
+            arr[2] = arr[2] + 1
+            return "Goblin"
+    else:
+        arr[1] = arr[1] + 1
+        arr[2] = arr[2] + 2
+        return "Air Genasi"
 def dexInt(arr):
     if arr[1] % 2 != 0:
-        arr[1] = arr[1] + 1
-        arr[3] = arr[3] + 2
-        return "Forest Gnome"
+        if r.randint(0, 1) == 1:
+            arr[1] = arr[1] + 1
+            arr[3] = arr[3] + 2
+            return "Forest Gnome"
+        else:
+            arr[1] = arr[1] + 1
+            arr[3] = arr[3] + 2
+            return "Deep Gnome"
     else:
         arr[1] = arr[1] + 2
         arr[3] = arr[3] + 1
         return "High Elf"
 def dexWis(arr):
-    arr[1] = arr[1] + 2
-    arr[4] = arr[4] + 1
-    return "Wood Elf"
+    rand = r.randint(0, 2)
+    if rand == 2:
+        arr[1] = arr[1] + 2
+        arr[4] = arr[4] + 1
+        return "Wood Elf"
+    elif rand == 1:
+        arr[1] = arr[1] + 2
+        arr[4] = arr[4] + 1
+        return "Ghostwise Halfling"
+    else:
+        arr[1] = arr[1] + 2
+        arr[4] = arr[4] + 1
+        return "Kenku"
 def dexCha(arr):
-    if r.randint(0,1) == 1:
+    rand = r.randint(0, 2)
+    if rand == 2:
         arr[1] = arr[1] + 2
         arr[5] = arr[5] + 1
         return "Drow"
-    else:
+    elif rand == 1:
         arr[1] = arr[1] + 2
         arr[5] = arr[5] + 1
         return "Lightfoot Halfling"
+    else:
+        arr[1] = arr[1] + 2
+        arr[5] = arr[5] + 1
+        return "Tabaxi"
 def conInt(arr):
-    arr[2] = arr[2] + 1
-    arr[3] = arr[3] + 2
-    return "Rock Gnome"
+    if arr[2] % 2 != 0:
+        arr[2] = arr[2] + 1
+        arr[3] = arr[3] + 2
+        return "Rock Gnome"
+    else:
+        if r.randint(0, 1) == 1:
+            arr[2] = arr[2] + 2
+            arr[3] = arr[3] + 1
+            return "Fire Genasi"
+        else:
+            arr[2] = arr[2] + 2
+            arr[3] = arr[3] + 1
+            return "Hobgoblin"
 def conWis(arr):
-    arr[2] = arr[2] + 1
-    arr[4] = arr[4] + 2
-    return "Hill Dwarf"
+    if arr[2] % 2 != 0:
+        arr[2] = arr[2] + 1
+        arr[4] = arr[4] + 2
+        return "Hill Dwarf"
+    else:
+        if r.randint(0, 1) == 1:
+            arr[2] = arr[2] + 2
+            arr[4] = arr[4] + 1
+            return "Water Genasi"
+        else:
+            arr[2] = arr[2] + 2
+            arr[4] = arr[4] + 1
+            return "Lizardfolk"
 def conCha(arr):
     arr[2] = arr[2] + 1
     arr[5] = arr[5] + 2
-    return "Half-Elf"
+    return "Scourge Aasimar"
 def intWis(arr):
-    return pickRaceByStats(arr, noGoodRaceStatIndexes)
+    #Fix this
+    if r.randint(0, 1) == 1:
+        arr[3] = arr[3] + 1
+        arr[4] = arr[4] + 1
+        arr[5] = arr[5] + 2
+        return "Half-Elf"
+    elif isNonVariantHuman(arr):
+        arr[0] = arr[0] + 1
+        arr[1] = arr[1] + 1
+        arr[2] = arr[2] + 1
+        arr[3] = arr[3] + 1
+        arr[4] = arr[4] + 1
+        arr[5] = arr[5] + 1
+        return "Human"
+    else:
+        arr[3] = arr[3] + 1
+        arr[4] = arr[4] + 1
+        return "Variant Human"
 def intCha(arr):
-    arr[3] = arr[3] + 1
-    arr[5] = arr[5] + 2
-    return "Tiefling"
+    if r.randint(0, 1) == 1:
+        arr[3] = arr[3] + 1
+        arr[5] = arr[5] + 2
+        return "Tiefling"
+    else:
+        arr[3] = arr[3] + 1
+        arr[5] = arr[5] + 2
+        return "Yuan-Ti Pureblood"
 def wisCha(arr):
     arr[4] = arr[4] + 1
     arr[5] = arr[5] + 2
-    return "Half-Elf"
+    return "Protector Aasimar"
 
 @app.route('/')
 def fullRoll():
