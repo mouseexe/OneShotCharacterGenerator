@@ -32,33 +32,16 @@ def dropLowest(arr):
             total += arr[idx]
     return total
 
-def highestStatIndexes(arr):
-    firstIdx = 0
-    for idx in range(len(arr)):
-        if arr[idx] > arr[firstIdx]:
-            firstIdx = idx
-    secondIdx = 5-firstIdx
-    for idx in range(len(arr)):
-        if arr[idx] > arr[secondIdx] and idx != firstIdx:
-            secondIdx = idx
-    return (firstIdx, secondIdx)
+def highestStatIndexes(sortArr):
+    return (sortArr[0], sortArr[1])
 
-def noGoodRaceStatIndexes(arr):
-    firstIdx = 0
-    for idx in range(len(arr)):
-        if arr[idx] > arr[firstIdx]:
-            firstIdx = idx
-    secondIdx = 5-firstIdx
-    for idx in range(len(arr)):
-        if arr[idx] > arr[secondIdx] and idx != firstIdx:
-            secondIdx = idx
-    thirdIdx = 5 - firstIdx
-    for idx in range(len(arr)):
-        if arr[idx] > arr[thirdIdx] and idx != firstIdx and idx != secondIdx:
-            thirdIdx = idx
-    return (firstIdx, thirdIdx)
+def rankStats(arr):
+    highToLow = arr[:]
+    highToLow = sorted(range(len(highToLow)), key=lambda k: highToLow[k])
+    return highToLow
 
-def pickRaceByStats(arr, statPicker):
+
+def pickRaceByStats(arr, sortArr, statPicker):
     classes = {
         (0, 1): strDex,
         (1, 0): strDex,
@@ -91,8 +74,11 @@ def pickRaceByStats(arr, statPicker):
         (4, 5): wisCha,
         (5, 4): wisCha
     }
-    func = classes.get(statPicker(arr), lambda: "stat error")
-    return func(arr)
+    func = classes.get(statPicker(sortArr), lambda: "stat error")
+    if humanCheck(sortArr):
+        return buildHuman(arr, sortArr)
+    else:
+        return func(arr, sortArr)
 
 def printStats(arr):
     return "STR " + str(arr[0]) + "\nDEX " + str(arr[1]) + "\nCON " + str(arr[2]) + "\nINT " + str(arr[3]) + "\nWIS " + str(arr[4]) + "\nCHA " + str(arr[5])
@@ -104,17 +90,45 @@ def isNonVariantHuman(arr):
             oddCount += 1
     return oddCount > 3
 
-#TODO Humans, Variant Humans, Kobolds, Orcs, Tritons, and Half-Elves
+def humanCheck(sortArr):
+    return sortArr[0] %2 == 1 and sortArr[0] %2 == 1
 
-def strDex(arr):
+def buildHuman(arr, sortArr):
+    if isNonVariantHuman(arr):
+        arr[0] = arr[0] + 1
+        arr[1] = arr[1] + 1
+        arr[2] = arr[2] + 1
+        arr[3] = arr[3] + 1
+        arr[4] = arr[4] + 1
+        arr[5] = arr[5] + 1
+        return "Human"
+    else:
+        arr[sortArr[0]] = arr[sortArr[0]] + 1
+        arr[sortArr[1]] = arr[sortArr[1]] + 1
+        return "Variant Human"
+
+def shuffleHighest(sortArr):
+    return sortArr[1:] + sortArr[:1]
+
+def strDex(arr, sortArr):
     arr[0] = arr[0] + 2
     arr[1] = arr[1] + 1
     return "Bugbear"
-def strCon(arr):
-    if arr[2]%2 != 0:
+def strCon(arr, sortArr):
+    if sortArr[2] == 5 and arr[0] %2 == 1 and arr[2] %2 == 1 and arr[5] %2 == 1:
+        arr[0] = arr[0] + 1
+        arr[2] = arr[2] + 1
+        arr[5] = arr[5] + 1
+        return "Triton"
+    elif arr[2]%2 != 0:
+        if sortArr[5] == 3:
+            arr[0] = arr[0] + 2
+            arr[2] = arr[2] + 1
+            arr[3] = arr[3] - 2
+            return "Orc"
         if r.randint(0, 1) == 1:
-            arr[0] = arr[0]+2
-            arr[2] = arr[2]+1
+            arr[0] = arr[0] + 2
+            arr[2] = arr[2] + 1
             return "Half-Orc"
         else:
             arr[0] = arr[0] + 2
@@ -133,26 +147,10 @@ def strCon(arr):
         arr[0] = arr[0] + 2
         arr[2] = arr[2] + 2
         return "Mountain Dwarf"
-def strInt(arr):
-    #Fix this
-    if r.randint(0, 1) == 1:
-        arr[0] = arr[0] + 1
-        arr[3] = arr[3] + 1
-        arr[5] = arr[5] + 2
-        return "Half-Elf"
-    elif isNonVariantHuman(arr):
-        arr[0] = arr[0] + 1
-        arr[1] = arr[1] + 1
-        arr[2] = arr[2] + 1
-        arr[3] = arr[3] + 1
-        arr[4] = arr[4] + 1
-        arr[5] = arr[5] + 1
-        return "Human"
-    else:
-        arr[0] = arr[0] + 1
-        arr[3] = arr[3] + 1
-        return "Variant Human"
-def strWis(arr):
+def strInt(arr, sortArr):
+    sortArr = shuffleHighest(sortArr)
+    return pickRaceByStats(arr, sortArr, highestStatIndexes)
+def strWis(arr, sortArr):
     if arr[0] % 2 != 0:
         arr[0] = arr[0] + 1
         arr[4] = arr[4] + 2
@@ -161,8 +159,18 @@ def strWis(arr):
         arr[0] = arr[0] + 2
         arr[4] = arr[4] + 1
         return "Tortle"
-def strCha(arr):
-    if arr[5]%2 != 0:
+def strCha(arr, sortArr):
+    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+        arr[0] = arr[0] + 1
+        arr[5] = arr[5] + 2
+        arr[sortArr[2]] = arr[sortArr[2]] + 1
+        return "Half-Elf"
+    if sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
+        arr[0] = arr[0] + 1
+        arr[1] = arr[1] + 1
+        arr[5] = arr[5] + 1
+        return "Triton"
+    elif arr[5]%2 != 0:
         arr[0] = arr[0] + 2
         arr[5] = arr[5] + 1
         return "Dragonborn"
@@ -170,8 +178,12 @@ def strCha(arr):
         arr[0] = arr[0] + 1
         arr[5] = arr[5] + 2
         return "Fallen Aasimar"
-def dexCon(arr):
-    if arr[2] % 2 != 0:
+def dexCon(arr, sortArr):
+    if r.randint(0, 3) == 3 and sortArr[5] == 0:
+        arr[0] = arr[0] - 2
+        arr[1] = arr[1] + 2
+        return "Kobold"
+    elif arr[2] % 2 != 0:
         if r.randint(0, 1) == 1:
             arr[1] = arr[1] + 2
             arr[2] = arr[2] + 1
@@ -184,8 +196,12 @@ def dexCon(arr):
         arr[1] = arr[1] + 1
         arr[2] = arr[2] + 2
         return "Air Genasi"
-def dexInt(arr):
-    if arr[1] % 2 != 0:
+def dexInt(arr, sortArr):
+    if r.randint(0, 3) == 3 and sortArr[5] == 0:
+        arr[0] = arr[0] - 2
+        arr[1] = arr[1] + 2
+        return "Kobold"
+    elif arr[1] % 2 != 0:
         if r.randint(0, 1) == 1:
             arr[1] = arr[1] + 1
             arr[3] = arr[3] + 2
@@ -198,35 +214,48 @@ def dexInt(arr):
         arr[1] = arr[1] + 2
         arr[3] = arr[3] + 1
         return "High Elf"
-def dexWis(arr):
-    rand = r.randint(0, 2)
-    if rand == 2:
+def dexWis(arr, sortArr):
+    if r.randint(0, 3) == 3 and sortArr[5] == 0:
+        arr[0] = arr[0] - 2
+        arr[1] = arr[1] + 2
+        return "Kobold"
+    rand = r.randint(0, 3)
+    if rand == 3:
         arr[1] = arr[1] + 2
         arr[4] = arr[4] + 1
-        return "Wood Elf"
-    elif rand == 1:
+        return "Kenku"
+    elif rand == 2:
         arr[1] = arr[1] + 2
         arr[4] = arr[4] + 1
         return "Ghostwise Halfling"
     else:
         arr[1] = arr[1] + 2
         arr[4] = arr[4] + 1
-        return "Kenku"
-def dexCha(arr):
-    rand = r.randint(0, 2)
-    if rand == 2:
+        return "Wood Elf"
+def dexCha(arr, sortArr):
+    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+        arr[1] = arr[1] + 1
+        arr[5] = arr[5] + 2
+        arr[sortArr[2]] = arr[sortArr[2]] + 1
+        return "Half-Elf"
+    if r.randint(0, 3) == 3 and sortArr[5] == 0:
+        arr[0] = arr[0] - 2
+        arr[1] = arr[1] + 2
+        return "Kobold"
+    rand = r.randint(0, 3)
+    if rand == 3:
         arr[1] = arr[1] + 2
         arr[5] = arr[5] + 1
         return "Drow"
-    elif rand == 1:
-        arr[1] = arr[1] + 2
-        arr[5] = arr[5] + 1
-        return "Lightfoot Halfling"
-    else:
+    elif rand == 2:
         arr[1] = arr[1] + 2
         arr[5] = arr[5] + 1
         return "Tabaxi"
-def conInt(arr):
+    else:
+        arr[1] = arr[1] + 2
+        arr[5] = arr[5] + 1
+        return "Lightfoot Halfling"
+def conInt(arr, sortArr):
     if arr[2] % 2 != 0:
         arr[2] = arr[2] + 1
         arr[3] = arr[3] + 2
@@ -240,7 +269,7 @@ def conInt(arr):
             arr[2] = arr[2] + 2
             arr[3] = arr[3] + 1
             return "Hobgoblin"
-def conWis(arr):
+def conWis(arr, sortArr):
     if arr[2] % 2 != 0:
         arr[2] = arr[2] + 1
         arr[4] = arr[4] + 2
@@ -254,39 +283,44 @@ def conWis(arr):
             arr[2] = arr[2] + 2
             arr[4] = arr[4] + 1
             return "Lizardfolk"
-def conCha(arr):
-    arr[2] = arr[2] + 1
-    arr[5] = arr[5] + 2
-    return "Scourge Aasimar"
-def intWis(arr):
-    #Fix this
-    if r.randint(0, 1) == 1:
-        arr[3] = arr[3] + 1
-        arr[4] = arr[4] + 1
+def conCha(arr, sortArr):
+    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+        arr[2] = arr[2] + 1
         arr[5] = arr[5] + 2
+        arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    elif isNonVariantHuman(arr):
+    if sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
         arr[0] = arr[0] + 1
         arr[1] = arr[1] + 1
-        arr[2] = arr[2] + 1
-        arr[3] = arr[3] + 1
-        arr[4] = arr[4] + 1
         arr[5] = arr[5] + 1
-        return "Human"
+        return "Triton"
     else:
-        arr[3] = arr[3] + 1
-        arr[4] = arr[4] + 1
-        return "Variant Human"
-def intCha(arr):
-    if r.randint(0, 1) == 1:
+        arr[2] = arr[2] + 1
+        arr[5] = arr[5] + 2
+        return "Scourge Aasimar"
+def intWis(arr, sortArr):
+    sortArr = shuffleHighest(sortArr)
+    return pickRaceByStats(arr, sortArr, highestStatIndexes)
+def intCha(arr, sortArr):
+    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
         arr[3] = arr[3] + 1
         arr[5] = arr[5] + 2
-        return "Tiefling"
-    else:
+        arr[sortArr[2]] = arr[sortArr[2]] + 1
+        return "Half-Elf"
+    if r.randint(0, 3) == 3:
         arr[3] = arr[3] + 1
         arr[5] = arr[5] + 2
         return "Yuan-Ti Pureblood"
-def wisCha(arr):
+    else:
+        arr[3] = arr[3] + 1
+        arr[5] = arr[5] + 2
+        return "Tiefling"
+def wisCha(arr, sortArr):
+    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+        arr[4] = arr[4] + 1
+        arr[5] = arr[5] + 2
+        arr[sortArr[2]] = arr[sortArr[2]] + 1
+        return "Half-Elf"
     arr[4] = arr[4] + 1
     arr[5] = arr[5] + 2
     return "Protector Aasimar"
@@ -294,7 +328,7 @@ def wisCha(arr):
 @app.route('/')
 def fullRoll():
     arr = rollStats()
-    raceStr = pickRaceByStats(arr, highestStatIndexes)
+    raceStr = pickRaceByStats(arr, rankStats(arr), highestStatIndexes)
     return render_template('fullRoll.html', race=raceStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
 
 @app.route('/stats')
