@@ -92,7 +92,7 @@ def isNonVariantHuman(arr):
     return oddCount > 3
 
 def humanCheck(sortArr):
-    return sortArr[0] %2 == 1 and sortArr[0] %2 == 1
+    return r.randint(0, 2) == 3 and sortArr[0] %2 == 1 and sortArr[0] %2 == 1
 
 def buildHuman(arr, sortArr):
     if isNonVariantHuman(arr):
