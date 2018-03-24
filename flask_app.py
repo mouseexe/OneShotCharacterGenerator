@@ -308,7 +308,7 @@ def intCha(arr, sortArr):
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    if r.randint(0, 3) == 3:
+    if r.randint(0, 2) == 2:
         arr[3] = arr[3] + 1
         arr[5] = arr[5] + 2
         return "Yuan-Ti Pureblood"
