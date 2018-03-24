@@ -38,7 +38,8 @@ def highestStatIndexes(sortArr):
 def rankStats(arr):
     highToLow = arr[:]
     highToLow = sorted(range(len(highToLow)), key=lambda k: highToLow[k])
-    return highToLow.reverse()
+    highToLow.reverse()
+    return highToLow
 
 
 def pickRaceByStats(arr, sortArr, statPicker):
