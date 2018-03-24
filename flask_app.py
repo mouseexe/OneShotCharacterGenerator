@@ -285,7 +285,7 @@ def conWis(arr, sortArr):
             arr[4] = arr[4] + 1
             return "Lizardfolk"
 def conCha(arr, sortArr):
-    if r.randint(0, 3) == 3 and arr[5] %2 == 0:
+    if r.randint(0, 2) == 2 and arr[5] %2 == 0:
         arr[2] = arr[2] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
@@ -317,7 +317,7 @@ def intCha(arr, sortArr):
         arr[5] = arr[5] + 2
         return "Tiefling"
 def wisCha(arr, sortArr):
-    if r.randint(0, 3) == 3 and arr[5] %2 == 0:
+    if r.randint(0, 2) == 2 and arr[5] %2 == 0:
         arr[4] = arr[4] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
