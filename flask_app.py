@@ -161,12 +161,12 @@ def strWis(arr, sortArr):
         arr[4] = arr[4] + 1
         return "Tortle"
 def strCha(arr, sortArr):
-    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+    if r.randint(0, 5) == 5 and arr[5] %2 == 0:
         arr[0] = arr[0] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    if sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
+    elif sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
         arr[0] = arr[0] + 1
         arr[1] = arr[1] + 1
         arr[5] = arr[5] + 1
@@ -234,7 +234,7 @@ def dexWis(arr, sortArr):
         arr[4] = arr[4] + 1
         return "Wood Elf"
 def dexCha(arr, sortArr):
-    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+    if r.randint(0, 5) == 5 and arr[5] %2 == 0:
         arr[1] = arr[1] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
@@ -285,12 +285,12 @@ def conWis(arr, sortArr):
             arr[4] = arr[4] + 1
             return "Lizardfolk"
 def conCha(arr, sortArr):
-    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+    if r.randint(0, 3) == 3 and arr[5] %2 == 0:
         arr[2] = arr[2] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    if sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
+    elif sortArr[2] == 2 and arr[0] % 2 == 1 and arr[2] % 2 == 1 and arr[5] % 2 == 1:
         arr[0] = arr[0] + 1
         arr[1] = arr[1] + 1
         arr[5] = arr[5] + 1
@@ -303,12 +303,12 @@ def intWis(arr, sortArr):
     sortArr = shuffleHighest(sortArr)
     return pickRaceByStats(arr, sortArr, highestStatIndexes)
 def intCha(arr, sortArr):
-    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+    if r.randint(0, 5) == 5 and arr[5] %2 == 0:
         arr[3] = arr[3] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    if r.randint(0, 2) == 2:
+    elif r.randint(0, 2) == 2:
         arr[3] = arr[3] + 1
         arr[5] = arr[5] + 2
         return "Yuan-Ti Pureblood"
@@ -317,14 +317,15 @@ def intCha(arr, sortArr):
         arr[5] = arr[5] + 2
         return "Tiefling"
 def wisCha(arr, sortArr):
-    if r.randint(0, 10) == 10 and arr[5] %2 == 0:
+    if r.randint(0, 3) == 3 and arr[5] %2 == 0:
         arr[4] = arr[4] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
         return "Half-Elf"
-    arr[4] = arr[4] + 1
-    arr[5] = arr[5] + 2
-    return "Protector Aasimar"
+    else:
+        arr[4] = arr[4] + 1
+        arr[5] = arr[5] + 2
+        return "Protector Aasimar"
 
 @app.route('/')
 def fullRoll():
