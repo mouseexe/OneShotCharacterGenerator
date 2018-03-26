@@ -8,20 +8,33 @@
     cursor: pointer;
     text-decoration:none;
     white-space:normal;
+    max-width:100%;
 }
 .button:hover {
     background: green;
 }
 @font-face {
-    font-family: trial;
+    font-family: reg;
     src: url("texgyrebonum-regular.otf") format("opentype");
+}
+@font-face {
+    font-family: ital;
+    src: url("texgyrebonum-italic.otf") format("opentype");
+}
+@font-face {
+    font-family: bold;
+    src: url("texgyrebonum-bold.otf") format("opentype");
 }
 body {
     text-align: center;
-    font-family: trial;
+    font-family: reg;
     color: gray;
 }
 h1 {
-    font-family: trial;
+    font-family: bold;
     color: black;
+}
+i {
+    font-family: ital;
+    color: gray;
 }

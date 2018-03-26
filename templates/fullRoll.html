@@ -7,15 +7,20 @@
     <body>
         <div>
             <h1>{{race}}</h1>
-            <p>Strength: {{statStr}}</p>
-            <p>Dexterity: {{statDex}}</p>
-            <p>Constitution: {{statCon}}</p>
-            <p>Intelligence: {{statInt}}</p>
-            <p>Wisdom: {{statWis}}</p>
-            <p>Charisma: {{statCha}}</p>
+            <p>Strength: <i>{{statStr}}</i></p>
+            <p>Dexterity: <i>{{statDex}}</i></p>
+            <p>Constitution: <i>{{statCon}}</i></p>
+            <p>Intelligence: <i>{{statInt}}</i></p>
+            <p>Wisdom: <i>{{statWis}}</i></p>
+            <p>Charisma: <i>{{statCha}}</i></p>
             <br><br>
-            <a href="/" class="button">Reload Stats</a>
-            <a href="/stats" class="button">Disable Auto-Select Race</a>
+            <div>
+                <a href="/" class="button">Reload Stats</a>
+            </div>
+            <br><br>
+            <div>
+                <a href="/stats" class="button">New Roll without Race Selection</a>
+            </div>
         </div>
     </body>
 </html>
