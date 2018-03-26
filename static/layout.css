@@ -7,13 +7,14 @@
     font-size: 16px;
     cursor: pointer;
     text-decoration:none;
+    white-space:normal;
 }
 .button:hover {
     background: green;
 }
 @font-face {
     font-family: trial;
-    src: url("../static/texgyrebonum-regular.otf") format("opentype");
+    src: url("texgyrebonum-regular.otf") format("opentype");
 }
 body {
     text-align: center;
