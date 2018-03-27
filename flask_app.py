@@ -351,7 +351,10 @@ def pickClassByStats(arr, sortArr, checkStat):
     elif sortArr[checkStat] == 2: #High Constitution
         return pickClassByStats(arr, sortArr, checkStat+1)
     elif sortArr[checkStat] == 3: #High Intelligence
-        return "Wizard"
+        if r.randint(0, 1) == 1:
+            return "Wizard"
+        else:
+            return "Artificer"
     elif sortArr[checkStat] == 4: #High Wisdom
         if arr[1] > 15:
             if r.randint(0, 1) == 1:
