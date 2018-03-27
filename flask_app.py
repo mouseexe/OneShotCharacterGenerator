@@ -330,11 +330,55 @@ def wisCha(arr, sortArr):
         arr[5] = arr[5] + 2
         return "Protector Aasimar"
 
+def pickClassByStats(arr, sortArr, checkStat):
+    if sortArr[checkStat] == 0: #High Strength
+        if arr[5] > 13:
+            return "Paladin"
+        elif r.randint(0, 2) == 2:
+            return "Fighter"
+        else:
+            return "Barbarian"
+    elif sortArr[checkStat] == 1: #High Dexterity
+        if arr[4] > 13:
+            if r.randint(0, 1) == 1:
+                return "Ranger"
+            else:
+                return "Monk"
+        elif r.randint(0, 2) == 2:
+            return "Fighter"
+        else:
+            return "Rogue"
+    elif sortArr[checkStat] == 2: #High Constitution
+        return pickClassByStats(arr, sortArr, checkStat+1)
+    elif sortArr[checkStat] == 3: #High Intelligence
+        return "Wizard"
+    elif sortArr[checkStat] == 4: #High Wisdom
+        if arr[1] > 15:
+            if r.randint(0, 1) == 1:
+                return "Ranger"
+            else:
+                return "Monk"
+        elif r.randint(0, 1) == 1:
+            return "Druid"
+        else:
+            return "Cleric"
+    elif sortArr[checkStat] == 5: #High Charisma
+        rand = r.randint(0, 2)
+        if arr[0] > 15:
+            return "Paladin"
+        elif rand == 2:
+            return "Bard"
+        elif rand == 1:
+            return "Sorcerer"
+        else:
+            return "Warlock"
+
 @app.route('/')
 def fullRoll():
     arr = rollStats()
     raceStr = pickRaceByStats(arr, rankStats(arr), highestStatIndexes)
-    return render_template('fullRoll.html', race=raceStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
+    classStr = pickClassByStats(arr, rankStats(arr), 0)
+    return render_template('fullRoll.html', race=raceStr, charClass=classStr, statStr=arr[0], statDex=arr[1], statCon=arr[2], statInt=arr[3], statWis=arr[4], statCha=arr[5])
 
 @app.route('/stats')
 def justStats():
