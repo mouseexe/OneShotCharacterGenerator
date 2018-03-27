@@ -41,6 +41,8 @@ def rankStats(arr):
     highToLow.reverse()
     return highToLow
 
+def shuffleHighest(sortArr):
+    return sortArr[0:1] + sortArr[2:] + sortArr[1:2]
 
 def pickRaceByStats(arr, sortArr, statPicker):
     classes = {
@@ -108,13 +110,14 @@ def buildHuman(arr, sortArr):
         arr[sortArr[1]] = arr[sortArr[1]] + 1
         return "Variant Human"
 
-def shuffleHighest(sortArr):
-    return sortArr[1:] + sortArr[:1]
-
 def strDex(arr, sortArr):
-    arr[0] = arr[0] + 2
-    arr[1] = arr[1] + 1
-    return "Bugbear"
+    if r.randint(0, 2) ==2:
+        arr[0] = arr[0] + 2
+        arr[1] = arr[1] + 1
+        return "Bugbear"
+    else:
+        sortArr = shuffleHighest(sortArr)
+        return pickRaceByStats(arr, sortArr, highestStatIndexes)
 def strCon(arr, sortArr):
     if sortArr[2] == 5 and arr[0] %2 == 1 and arr[2] %2 == 1 and arr[5] %2 == 1:
         arr[0] = arr[0] + 1
