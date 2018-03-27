@@ -92,7 +92,7 @@ def isNonVariantHuman(arr):
     return oddCount > 3
 
 def humanCheck(sortArr):
-    return r.randint(0, 2) == 3 and sortArr[0] %2 == 1 and sortArr[0] %2 == 1
+    return r.randint(0, 2) == 2 and sortArr[0] %2 == 1 and sortArr[0] %2 == 1
 
 def buildHuman(arr, sortArr):
     if isNonVariantHuman(arr):
@@ -185,14 +185,14 @@ def dexCon(arr, sortArr):
         arr[1] = arr[1] + 2
         return "Kobold"
     elif arr[2] % 2 != 0:
-        if r.randint(0, 1) == 1:
-            arr[1] = arr[1] + 2
-            arr[2] = arr[2] + 1
-            return "Stout Halfling"
-        else:
+        if r.randint(0, 2) == 2:
             arr[1] = arr[1] + 2
             arr[2] = arr[2] + 1
             return "Goblin"
+        else:
+            arr[1] = arr[1] + 2
+            arr[2] = arr[2] + 1
+            return "Stout Halfling"
     else:
         arr[1] = arr[1] + 1
         arr[2] = arr[2] + 2
@@ -220,12 +220,12 @@ def dexWis(arr, sortArr):
         arr[0] = arr[0] - 2
         arr[1] = arr[1] + 2
         return "Kobold"
-    rand = r.randint(0, 3)
-    if rand == 3:
+    rand = r.randint(0, 4)
+    if rand == 4:
         arr[1] = arr[1] + 2
         arr[4] = arr[4] + 1
         return "Kenku"
-    elif rand == 2:
+    elif rand == 3:
         arr[1] = arr[1] + 2
         arr[4] = arr[4] + 1
         return "Ghostwise Halfling"
@@ -285,7 +285,7 @@ def conWis(arr, sortArr):
             arr[4] = arr[4] + 1
             return "Lizardfolk"
 def conCha(arr, sortArr):
-    if r.randint(0, 2) == 2 and arr[5] %2 == 0:
+    if r.randint(0, 1) == 1 and arr[5] %2 == 0:
         arr[2] = arr[2] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
@@ -317,7 +317,7 @@ def intCha(arr, sortArr):
         arr[5] = arr[5] + 2
         return "Tiefling"
 def wisCha(arr, sortArr):
-    if r.randint(0, 2) == 2 and arr[5] %2 == 0:
+    if r.randint(0, 1) == 1 and arr[5] %2 == 0:
         arr[4] = arr[4] + 1
         arr[5] = arr[5] + 2
         arr[sortArr[2]] = arr[sortArr[2]] + 1
