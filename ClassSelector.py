@@ -73,7 +73,7 @@ def artificer(arr, sortArr):
     if u.d(1) == 1 and arr[1] > 13:
         return "Artificer (Gunsmith)"
     else:
-        return "Artifcer (Alchemist)"
+        return "Artificer (Alchemist)"
 
 def fighter(arr, sortArr):
     rand = u.d(6)
