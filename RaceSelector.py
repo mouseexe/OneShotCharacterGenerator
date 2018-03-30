@@ -83,7 +83,7 @@ def strCon(arr, sortArr):
             arr[2] = arr[2] + 1
             arr[3] = arr[3] - 2
             return "Orc"
-        if r.randint(0, 1) == 1:
+        if u.d(1) == 1:
             arr[0] = arr[0] + 2
             arr[2] = arr[2] + 1
             return "Half-Orc"
@@ -218,7 +218,7 @@ def conInt(arr, sortArr):
         arr[3] = arr[3] + 2
         return "Rock Gnome"
     else:
-        if r.randint(0, 1) == 1:
+        if u.d(1) == 1:
             arr[2] = arr[2] + 2
             arr[3] = arr[3] + 1
             return "Fire Genasi"
