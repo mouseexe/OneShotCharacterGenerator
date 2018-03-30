@@ -7,7 +7,7 @@ def pickClassByStats(arr, sortArr, checkStat):
         elif u.d(2) == 2:
             return fighter(arr, sortArr)
         else:
-            return "Barbarian"
+            return barbarian(arr, sortArr)
     elif sortArr[checkStat] == 1: #High Dexterity
         if arr[4] > 13:
             if u.d(1) == 1:
@@ -81,7 +81,7 @@ def fighter(arr, sortArr):
         return "Fighter (Eldritch Knight)"
     elif rand == 5:
         return "Fighter (Purple Dragon Knight)"
-    elif rand == 4:
+    elif rand == 4 and arr[1] > 15:
         return "Fighter (Arcane Archer)"
     elif rand == 3:
         return "Fighter (Samurai)"
@@ -91,3 +91,18 @@ def fighter(arr, sortArr):
         return "Fighter (Battle Master)"
     else:
         return "Fighter (Champion)"
+
+def barbarian(arr, sortArr):
+    rand = u.d(5)
+    if rand == 5:
+        return "Barbarian (Path of the Berserker)"
+    elif rand == 4:
+        return "Barbarian (Path of the Totem Warrior)"
+    elif rand == 3:
+        return "Barbarian (Path of the Ancestral Guardian)"
+    elif rand == 2:
+        return "Barbarian (Path of the Storm Herald)"
+    elif rand == 1:
+        return "Barbarian (Path of the Zealot)"
+    else:
+        return "Barbarian (Path of the Battlerager)"
