@@ -232,7 +232,7 @@ def conWis(arr, sortArr):
         arr[4] = arr[4] + 2
         return "Hill Dwarf"
     else:
-        if r.randint(0, 1) == 1:
+        if u.d(1) == 1:
             arr[2] = arr[2] + 2
             arr[4] = arr[4] + 1
             return "Water Genasi"
