@@ -232,21 +232,21 @@ def sorcerer(arr, sortArr):
 def warlock(arr, sortArr):
     rand = u.d(2)
     if rand == 2:
-        boon = "Pact of the Tome)"
+        boon = "Pact of the Tome"
     elif rand == 1:
-        boon = "Pact of the Chain)"
+        boon = "Pact of the Chain"
     else:
-        boon = "Pact of the Blade)"
+        boon = "Pact of the Blade"
     rand = u.d(5)
     if rand == 5:
-        return "Warlock (The Hexblade," + boon
+        return "Warlock (The Hexblade, " + boon + ")"
     elif rand == 4:
-        return "Warlock (The Celestial," + boon
+        return "Warlock (The Celestial, " + boon + ")"
     elif rand == 3:
-        return "Warlock (The Undying," + boon
+        return "Warlock (The Undying, " + boon + ")"
     elif rand == 2:
-        return "Warlock (The Fiend," + boon
+        return "Warlock (The Fiend, " + boon + ")"
     elif rand == 1:
-        return "Warlock (The Archfey," + boon
+        return "Warlock (The Archfey, " + boon + ")"
     else:
-        return "Warlock (The Great Old One," + boon
+        return "Warlock (The Great Old One, " + boon + ")"
