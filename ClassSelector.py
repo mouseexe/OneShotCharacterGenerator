@@ -127,7 +127,7 @@ def cleric(arr, sortArr):
     elif rand == 8:
         return "Cleric (Forge Domain)"
     elif rand == 7:
-        return "Cleric (Divine Domain)"
+        return "Cleric (Arcane Domain)"
     elif rand == 6:
         return "Cleric (War Domain)"
     elif rand == 5:
